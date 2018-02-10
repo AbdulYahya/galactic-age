@@ -8,21 +8,22 @@ export class GalacticCalculator {
     this.expectancy = expectancy;
   }
 
-
-  difference(comparisonDateOne, comparisonDateTwo, unit) {
+  difference(comparisonDateOne, comparisonDateTwo, units) {
     comparisonDateOne = moment(comparisonDateOne);
     comparisonDateTwo = moment(comparisonDateTwo);
 
-    if ((comparisonDateOne - comparisonDateTwo) < 0) {
-      return comparisonDateTwo.diff(comparisonDateOne, unit);
+    if (comparisonDateOne.isBefore(comparisonDateTwo)) {
+      return comparisonDateTwo.diff(comparisonDateOne, units);
     } else {
-      return comparisonDateOne.diff(comparisonDateTwo, unit);
+      return comparisonDateOne.diff(comparisonDateTwo, units);
     }
   }
 
-  convertBirthToSeconds() {
-    // birth = this.difference(new Date(birth), moment());
-    console.log(this.difference(new Date(this.birthday), moment(), 'seconds'));
+  convertAgeToSeconds() {
     return this.difference(new Date(this.birthday), moment(), 'seconds');
+  }
+
+  ageOnMercury() {
+    return parseFloat((this.convertAgeToSeconds() / 7568640).toFixed(2));
   }
 }

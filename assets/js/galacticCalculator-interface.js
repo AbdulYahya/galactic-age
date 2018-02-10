@@ -15,7 +15,7 @@ function processForm() {
     console.log(birth);
 
     $('#header').html(`You are ${galacticCalculator.difference(birth, moment(), 'years')} years old!`);
-    $('#calculation').append("yo" + galacticCalculator.convertBirthToSeconds(birth));
+    $('#calculation').append("yo" + galacticCalculator.convertAgeToSeconds());
   });
 }
 
