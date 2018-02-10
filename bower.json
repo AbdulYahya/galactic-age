@@ -1,0 +1,29 @@
+{
+  "name": "galactic-age",
+  "description": "A solar age calculator. An application that determines a user’s age based on a planet’s solar years.",
+  "main": "index.js",
+  "authors": [
+    "Abdullah Yahya"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "Galactic",
+    "Age",
+    "Calculator",
+    "Solar",
+    "Years",
+    "Planets"
+  ],
+  "homepage": "https://abdulyahya.github.io/galactic-age",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.3.1",
+    "bootstrap": "^4.0.0"
+  }
+}
