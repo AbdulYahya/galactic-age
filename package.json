@@ -6,10 +6,7 @@
   "scripts": {
     "test": "karma start karma.conf.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/AbdulYahya/galactic-age.git"
-  },
+
   "keywords": [
     "Galactic",
     "Age",
@@ -50,6 +47,7 @@
     "karma-jasmine": "^1.1.1",
     "karma-jasmine-html-reporter": "^0.2.2",
     "karma-jquery": "^0.2.2",
+    "moment": "^2.20.1",
     "tailwindcss": "^0.4.1",
     "vinyl-source-stream": "^2.0.0",
     "watchify": "^3.10.0"

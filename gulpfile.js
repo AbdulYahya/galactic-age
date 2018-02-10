@@ -17,10 +17,10 @@ const lib = require('bower-files') ({  // look at https://github.com/twbs/bootst
     }
   }
 });
+const moment = require('moment');
 const source = require('vinyl-source-stream');
 const uglify = require('gulp-uglify');
 const utilities = require('gulp-util');
-
 const buildProduction = utilities.env.prod; // append tag '--prod' to gulp command
 
 
@@ -32,7 +32,7 @@ gulp.task('jshint', function() {
 });
 
 gulp.task('concatJS', function() {
-  return gulp.src(['./assets/js/*.js'])
+  return gulp.src(['./assets/js/*-interface.js'])
     .pipe(concat('allConcat.js'))
     .pipe(gulp.dest('./tmp'));
 });

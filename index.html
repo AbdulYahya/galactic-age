@@ -8,6 +8,8 @@
     <title>Abdul Says</title>
     <!-- <link rel="stylesheet" href="build/assets/css/styles.css"> -->
     <link rel="stylesheet" href="build/assets/css/app.css">
+    <script src="build/assets/js/vendor.min.js"></script>
+    <script src="build/assets/js/app.js"></script>
   </head>
   <body>
     <div id="container">
@@ -20,16 +22,24 @@
               <p class="text-sm leading-tight text-grey-dark">Fill the form out to get your results today!</p>
             </div>
             <div>
-              <button class="text-xs font-semibold rounded-full px-4 py-1 leading-normal bg-white border border-purple text-purple hover:bg-purple hover:text-white">Message</button>
+              <form id="galacticForm">
+                <div class="">
+                  <input type="date" name="birth" id="birth" value="1985-03-25">
+                </div>
+                <button class="text-xs font-semibold rounded-full px-4 py-1 leading-normal bg-white border border-purple text-purple hover:bg-purple hover:text-white" type="submit">Message</button>
+
+              </form>
             </div>
+
+            <div id="calculation"></div>
           </div>
         </div>
       </div>
     </div>
 
-<script src="build/assets/js/vendor.min.js"></script>
-<script type="text/javascript" src="build/assets/js/scripts.js"></script>
-<script src="build/assets/js/app.js"></script>
+
+<!-- <script type="text/javascript" src="build/assets/js/scripts.js"></script> -->
+
 
 
   </body>
