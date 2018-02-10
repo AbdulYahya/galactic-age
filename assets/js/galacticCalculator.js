@@ -35,4 +35,8 @@ export class GalacticCalculator {
     return parseFloat((this.convertAgeToSeconds() / 59287680).toFixed(2));
   }
 
+  ageOnJupiter() {
+    return parseFloat((this.convertAgeToSeconds() / 374016960).toFixed(2));
+  }
+  
 }

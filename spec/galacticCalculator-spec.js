@@ -35,4 +35,9 @@ describe('GalacticCalculator', function() {
   it('should return age on mercury', function() {
     expect(galacticCal.ageOnMars()).toEqual(12.7);
   });
+
+  // ageOnJupiter
+  it('should return age on mercury', function() {
+    expect(galacticCal.ageOnJupiter()).toEqual(2.01);
+  });
 });
