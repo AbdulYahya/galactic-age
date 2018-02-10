@@ -8,23 +8,21 @@ export class GalacticCalculator {
     this.expectancy = expectancy;
   }
 
-  convertBirthToSeconds(birth) {
-    birth = new Date(birth);
-    console.log(birth);
-    // console.log(moment()econds(birth).toString());
-    return moment.duration(birth.getTime()).asSeconds();
-  }
 
-  difference(comparisonDateOne, comparisonDateTwo) {
+  difference(comparisonDateOne, comparisonDateTwo, unit) {
     comparisonDateOne = moment(comparisonDateOne);
     comparisonDateTwo = moment(comparisonDateTwo);
 
     if ((comparisonDateOne - comparisonDateTwo) < 0) {
-      return comparisonDateTwo.diff(comparisonDateOne, 'seconds');
+      return comparisonDateTwo.diff(comparisonDateOne, unit);
     } else {
-      return comparisonDateOne.diff(comparisonDateTwo, 'seconds');
+      return comparisonDateOne.diff(comparisonDateTwo, unit);
     }
+  }
 
-    // return comparisonDateTwo.diff(comparisonDateOne, 'seconds');
+  convertBirthToSeconds() {
+    // birth = this.difference(new Date(birth), moment());
+    console.log(this.difference(new Date(this.birthday), moment(), 'seconds'));
+    return this.difference(new Date(this.birthday), moment(), 'seconds');
   }
 }
