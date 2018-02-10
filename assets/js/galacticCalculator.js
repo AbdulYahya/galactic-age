@@ -30,4 +30,9 @@ export class GalacticCalculator {
   ageOnVenus() {
     return parseFloat((this.convertAgeToSeconds() / 19552320).toFixed(2));
   }
+
+  ageOnMars() {
+    return parseFloat((this.convertAgeToSeconds() / 59287680).toFixed(2));
+  }
+
 }
