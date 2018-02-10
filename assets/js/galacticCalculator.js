@@ -23,20 +23,27 @@ export class GalacticCalculator {
     return this.difference(new Date(this.birthday), moment(), 'seconds');
   }
 
-  ageOnMercury() {
-    return parseFloat((this.convertAgeToSeconds() / 7568640).toFixed(2));
+  solarAge(planet) {
+    console.log(planet);
+
+    switch(planet) {
+      case 'mercury':
+        return parseFloat((this.convertAgeToSeconds() / 7568640).toFixed(2));
+        break;
+      case 'venus':
+        return parseFloat((this.convertAgeToSeconds() / 19552320).toFixed(2));
+        break;
+      case 'mars':
+        return parseFloat((this.convertAgeToSeconds() / 59287680).toFixed(2));
+        break;
+      case 'jupiter':
+        return parseFloat((this.convertAgeToSeconds() / 374016960).toFixed(2));
+        break;
+      default:
+        return "Sorry that planet is not yet added! Maybe in a future update?";
+        break;
+    }
   }
 
-  ageOnVenus() {
-    return parseFloat((this.convertAgeToSeconds() / 19552320).toFixed(2));
-  }
 
-  ageOnMars() {
-    return parseFloat((this.convertAgeToSeconds() / 59287680).toFixed(2));
-  }
-
-  ageOnJupiter() {
-    return parseFloat((this.convertAgeToSeconds() / 374016960).toFixed(2));
-  }
-  
 }

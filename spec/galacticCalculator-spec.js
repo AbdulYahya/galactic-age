@@ -21,23 +21,13 @@ describe('GalacticCalculator', function() {
     expect(galacticCal.difference(dateOne, dateTwo, 'seconds')).toEqual(40690800);
   });
 
-  // ageOnMercury
-  it('should return age on mercury', function() {
-    expect(galacticCal.ageOnMercury()).toEqual(99.51);
+  // solarAge
+  it('should return age on chosen planet', function() {
+    expect(galacticCal.solarAge('mercury')).toEqual(99.51);
+    expect(galacticCal.solarAge('venus')).toEqual(38.52);
+    expect(galacticCal.solarAge('mars')).toEqual(12.7);
+    expect(galacticCal.solarAge('jupiter')).toEqual(2.01);
+    expect(galacticCal.solarAge('saturn')).toEqual("Sorry that planet is not yet added! Maybe in a future update?");
   });
 
-  // ageOnVenus
-  it('should return age on mercury', function() {
-    expect(galacticCal.ageOnVenus()).toEqual(38.52);
-  });
-
-  // ageOnMars
-  it('should return age on mercury', function() {
-    expect(galacticCal.ageOnMars()).toEqual(12.7);
-  });
-
-  // ageOnJupiter
-  it('should return age on mercury', function() {
-    expect(galacticCal.ageOnJupiter()).toEqual(2.01);
-  });
 });

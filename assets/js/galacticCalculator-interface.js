@@ -7,7 +7,7 @@ function processForm() {
     event.preventDefault();
     event.stopPropagation();
 
-    const birth = $('#birth').val();
+    const birth = $('#dob').val();
     const expectancy = $('#expectancy').val();
 
     const galacticCalculator = new GalacticCalculator(birth, expectancy);
