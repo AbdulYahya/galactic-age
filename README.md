@@ -2,8 +2,12 @@
   <img width=80% src="assets/images/galactic_age_logo.png">
 </p>
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+[![Project version](https://img.shields.io/badge/Version-0.1.0-blue.svg?style=for-the-badge)](https://github.com/AbdulYahya/galactic-age)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+[![GitHub issues](https://img.shields.io/github/issues/AbdulYahya/galactic-age.svg?style=for-the-badge)](https://github.com/AbdulYahya/galactic-age/issues)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+[![GitHub license](https://img.shields.io/github/license/AbdulYahya/galactic-age.svg?style=for-the-badge)](https://github.com/AbdulYahya/galactic-age/blob/master/LICENSE)
 <!-- buttons -->
 
 ## Basic Overview

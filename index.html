@@ -8,8 +8,6 @@
     <title>Abdul Says</title>
     <link rel="stylesheet" href="build/assets/css/styles.css">
     <link rel="stylesheet" href="build/assets/css/app.css">
-    <script src="build/assets/js/vendor.min.js"></script>
-    <script src="build/assets/js/app.js"></script>
   </head>
   <body>
     <div id="container">
@@ -33,7 +31,7 @@
                       <div class="form-group col-md-6">
                         <p class="card-title text-lg font-light">Country</p>
                         <select class="form-control font-light text-grey-dark" name="country" id="country">
-                          <option value="0" label="Select a country … " selected="selected">Select a country</option>
+                          <option value="US" label="United States" selected="US">Select a country</option>
                             <optgroup id="country-optgroup-Africa" label="Africa">
                               <option value="DZ" label="Algeria">Algeria</option>
                               <option value="AO" label="Angola">Angola</option>
@@ -312,7 +310,7 @@
 
             </div>
 
-            <div id="calculation">
+            <div class="hidden" id="calculation">
               <div class="card">
                 <div class="card-body">
                   <h4 class="card-title font-light">Statistics</h4>
@@ -324,7 +322,8 @@
       </div>
     </div>
 
-
+    <script src="build/assets/js/vendor.min.js"></script>
+    <script src="build/assets/js/app.js"></script>
 <!-- <script type="text/javascript" src="build/assets/js/scripts.js"></script> -->
 
 
