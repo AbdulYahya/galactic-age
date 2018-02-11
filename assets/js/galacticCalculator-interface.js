@@ -1,6 +1,4 @@
 import { GalacticCalculator }  from './../assets/js/galacticCalculator.js';
-// let galacticCalculator = null;
-const now = moment();
 
 const processAge = age => {
   // age = moment.duration(galacticCalculator.convertAgeToSeconds(age), 'seconds').asYears();
@@ -24,7 +22,8 @@ const processAge = age => {
 
 let processForm = () => {
   const form = document.getElementById('galacticForm');
-
+  const now = moment();
+  
   form.addEventListener('submit', function(event) {
     event.preventDefault();
     event.stopPropagation();

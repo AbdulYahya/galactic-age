@@ -6,17 +6,17 @@
     <meta name="description" content="My simplified version of the old game 'Simon Says'.">
     <meta name="author" content="Abdullah Yahya">
     <title>Abdul Says</title>
-    <link rel="stylesheet" href="build/assets/css/styles.css">
+    <link rel="stylesheet" href="build/assets/css/vendor.css">
     <link rel="stylesheet" href="build/assets/css/app.css">
   </head>
   <body>
-    <div id="container">
-      <div class="bg-white mx-auto max-w-md shadow-lg rounded-lg overflow-hidden">
-        <div class="sm:flex sm:items-center px-6 py-4">
+    <div class="container mx-auto">
+      <div class="bg-grey-light mx-auto max-w-md shadow-lg rounded-lg overflow-hidden">
+        <div class="sm:flex sm:items-center px-6 py-4 nebula-bg">
           <img class="block h-16 my-0 sm:h-24 rounded-full mb-4 sm:mb-0 sm:mr-4 sm:ml-0" src="build/assets/images/galactic_age_icon.png" alt="">
           <div class="sm:text-left sm:flex-grow">
             <div class="mb-4">
-              <p class="text-3xl leading-tight">Galactic Age</p>
+              <p class="text-3xl leading-tight text-white">Galactic Age</p>
               <p id="header" class="text-sm leading-tight text-grey-dark">Fill the form out to get your results today!</p>
             </div>
             <div>
@@ -26,7 +26,7 @@
                     <div class="form-row">
                       <div class="form-group col-md-6">
                         <p class="card-title text-lg font-light">Name</p>
-                        <input type="text" class="form-control font-light text-grey-dark" name="name" id="name" placeholder="Samwise Gamgee">
+                        <input type="text" class="form-control font-light text-grey-dark" name="name" id="name" placeholder="Samwise Gamgee" required>
                       </div>
                       <div class="form-group col-md-6">
                         <p class="card-title text-lg font-light">Country</p>
@@ -311,11 +311,11 @@
             </div>
 
             <div class="hidden" id="calculation">
-              <div class="card" style="width:18rem;">
+              <div class="card mx-auto" style="width:18rem;">
                 <div class="card-body">
-                  <h4 class="card-title font-light">Statistics</h4>
+                  <h4 class="card-title font-light" id="userName"></h4>
                   <hr />
-                  <p class="text-lg font-light">Name: <span class="text-base font-light text-grey-dark float-right" id="userName"></span></p>
+                  <!-- <p class="text-lg font-light">Name: <span class="text-base font-light text-grey-dark float-right" ></span></p> -->
                   <p class="text-lg font-light">Earth Age: <span class="text-base font-light text-grey-dark float-right" id="earthAge"></span></p>
                   <p class="text-lg font-light">Mercury Age: <span class="text-base font-light text-grey-dark float-right" id="mercuryAge"></span></p>
                   <p class="text-lg font-light">Venus Age: <span class="text-base font-light text-grey-dark float-right" id="venusAge"></span></p>
@@ -331,8 +331,6 @@
 
     <script src="build/assets/js/vendor.min.js"></script>
     <script src="build/assets/js/app.js"></script>
-<!-- <script type="text/javascript" src="build/assets/js/scripts.js"></script> -->
-
 
 
   </body>

@@ -6,7 +6,6 @@
   "scripts": {
     "test": "karma start karma.conf.js"
   },
-
   "keywords": [
     "Galactic",
     "Age",
@@ -31,6 +30,7 @@
     "browserify": "^16.0.0",
     "del": "^3.0.0",
     "gulp": "^3.9.1",
+    "gulp-clean-css": "^3.9.2",
     "gulp-concat": "^2.6.1",
     "gulp-imagemin": "^4.1.0",
     "gulp-jshint": "^2.1.0",

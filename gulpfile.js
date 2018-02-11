@@ -1,6 +1,7 @@
 const babelify = require('babelify');
 const browserify = require('browserify');
 const browserSync = require('browser-sync');
+const cleanCSS = require('gulp-clean-css');
 const concat = require('gulp-concat');
 const del = require('del');
 const gulp = require('gulp');
@@ -24,35 +25,42 @@ const utilities = require('gulp-util');
 const buildProduction = utilities.env.prod; // append tag '--prod' to gulp command
 
 
-
-gulp.task('jshint', function() {
+gulp.task('jshint', () => {
   return gulp.src(['assets/js/*.js', 'spec/*-spec.js'])
     .pipe(jshint())
     .pipe(jshint.reporter('default'));
 });
 
-gulp.task('concatJS', function() {
+gulp.task('concatJS', () => {
   return gulp.src(['./assets/js/*-interface.js'])
     .pipe(concat('allConcat.js'))
     .pipe(gulp.dest('./tmp'));
 });
 
-gulp.task('concatCSS', function() {
-    return gulp.src(['./assets/css/*.css', '!./assets/css/app.css'])
-      .pipe(concat('vendor.css'))  // Change to allConcat after browserify issue is solved
-      .pipe(gulp.dest('./tmp'));
-});
-
-gulp.task('twCSS', function() {
+gulp.task('twCSS', () => {
   const postcss = require('gulp-postcss');
   const tailwindcss = require('tailwindcss');
 
-  return gulp.src('assets/css/app.css')
+  return gulp.src('assets/css/tailwind.css')
     .pipe(postcss([
       tailwindcss('./tailwind.js'),
       require('autoprefixer'),
     ]))
-    .pipe(gulp.dest('build/assets/css'));
+    // .pipe(gulp.dest('build/assets/css'));
+    .pipe(gulp.dest('./tmp'));
+});
+
+gulp.task('bootstrap', ['twCSS'], () => {
+  return gulp.src(lib.ext('css').files)
+    .pipe(concat('bootstrap.css'))
+    // Minify?
+    .pipe(gulp.dest('./tmp'));
+});
+
+gulp.task('concatCSS', ['bootstrap'], () => {
+    return gulp.src(['./tmp/*.css'])
+      .pipe(concat('vendor.css'))  // Change to allConcat after browserify issue is solved
+      .pipe(gulp.dest('./tmp'));
 });
 
 gulp.task('images', () =>
@@ -61,7 +69,7 @@ gulp.task('images', () =>
 		.pipe(gulp.dest('./build/assets/images'))
 );
 
-gulp.task('jsBrowserify', ['concatJS'], function() {
+gulp.task('jsBrowserify', ['concatJS'], () => {
   return browserify({ entries: ['./tmp/allConcat.js'] })
     .transform(babelify.configure({
       presets: ["env"]
@@ -71,54 +79,52 @@ gulp.task('jsBrowserify', ['concatJS'], function() {
     .pipe(gulp.dest('./build/assets/js'));
 });
 
-gulp.task('cssBrowserify', ['concatCSS'], function() { // Gulp Error when using Browserify *look into browserify-css
-  return gulp.src(['./tmp/vendor.css'])
+gulp.task('cssBrowserify', ['concatCSS'], () => { // Gulp Error when using Browserify *look into browserify-css
+  return gulp.src(['./tmp/vendor.css', 'assets/css/app.css'])
     .pipe(gulp.dest('./build/assets/css'));
 });
 
-gulp.task('minifyJS', ['jsBrowserify'], function() {
+gulp.task('minifyJS', ['jsBrowserify'], () => {
   return gulp.src('./build/assets/js/app.js')
     .pipe(uglify())
     .pipe(gulp.dest('./build/assets/js'));
 });
 
-// gulp.task minifyCSS ??
+gulp.task('minifyCSS', ['cssBrowserify'], () => {
+  return gulp.src('./build/assets/css/*.css')
+    .pipe(cleanCSS({debug: true}, (details) => {
+      console.log(`${details.name}: ${details.stats.originalSize}`);
+      console.log(`${details.name}: ${details.stats.minifiedSize}`);
+    }))
+  .pipe(gulp.dest('./build/assets/css'));
+});
 
-gulp.task('jsBower', function() {
+gulp.task('jsBower', () => {
   return gulp.src(lib.ext('js').files)
     .pipe(concat('vendor.min.js'))
     .pipe(uglify())
     .pipe(gulp.dest('./build/assets/js'));
 });
 
-gulp.task('cssBower', function() {
-  return gulp.src(lib.ext('css').files)
-    .pipe(concat('styles.css'))
-    // Minify?
-    .pipe(gulp.dest('./build/assets/css'));
-});
+gulp.task('bower', ['jsBower', 'cssBrowserify']);
 
-gulp.task('bower', ['jsBower', 'cssBower']);
-
-gulp.task('clean', function() {
+gulp.task('clean', () => {
   return del(['build', 'tmp']);
 });
 
-gulp.task('build', ['clean'], function() {
+gulp.task('build', ['clean'], () => {
   if (buildProduction) {
     gulp.start('minifyJS');
-   // Minified version of CSS
+    gulp.start('minifyCSS');
   } else {
     gulp.start('jsBrowserify');
     gulp.start('cssBrowserify');
   }
 
-  gulp.start('twCSS'); //-- Use Bootstraps SASS?
-  gulp.start('bower');
   gulp.start('images');
 });
 
-gulp.task('serve', ['build'], function() {
+gulp.task('serve', ['build'], () => {
   browserSync.init({
     server: {
       baseDir: "./",
@@ -134,22 +140,22 @@ gulp.task('serve', ['build'], function() {
   //gulp.watch('scss/*.scss', ['cssBuild']);  -- Use Bootstrap's SASS??
 });
 
-gulp.task('jsBuild', ['jsBrowserify', 'jshint'], function() {
+gulp.task('jsBuild', ['jsBrowserify', 'jshint'], () => {
   browserSync.reload();
 });
 
-gulp.task('cssBuild', ['cssBrowserify'], function() {
+gulp.task('cssBuild', ['cssBrowserify'], () => {
     browserSync.reload();
 });
 
-gulp.task('mainCSS', ['twCSS'], function() {
+gulp.task('mainCSS', ['twCSS'], () => {
   browserSync.reload();
 });
 
-gulp.task('bowerBuild', ['bower'], function() {
+gulp.task('bowerBuild', ['bower'], () => {
   browserSync.reload();
 });
 
-gulp.task('htmlBuild', function() {
+gulp.task('htmlBuild', () => {
   browserSync.reload();
 });
