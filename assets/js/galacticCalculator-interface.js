@@ -8,14 +8,14 @@ function processForm() {
     event.stopPropagation();
 
     const birth = $('#dob').val();
-    const expectancy = $('#expectancy').val();
+    // const expectancy = $('#expectancy').val();
 
-    const galacticCalculator = new GalacticCalculator(birth, expectancy);
+    const galacticCalculator = new GalacticCalculator(birth);
 
     console.log(birth);
 
     $('#header').html(`You are ${galacticCalculator.difference(birth, moment(), 'years')} years old!`);
-    $('#calculation').append("yo" + galacticCalculator.convertAgeToSeconds());
+    $('#calculation').append("yo" + galacticCalculator.convertAgeToSeconds(birth));
   });
 }
 
