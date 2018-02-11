@@ -8,7 +8,7 @@ export class GalacticCalculator {
     comparisonDateOne = new Date(comparisonDateOne).setMilliseconds(0);
     comparisonDateTwo = new Date(comparisonDateTwo).setMilliseconds(0);
 
-    return (comparisonDateOne - comparisonDateTwo) / 1000;
+    return ((comparisonDateOne - comparisonDateTwo) / 1000);
   }
 
   convertAgeToSeconds() {
