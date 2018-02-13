@@ -1,4 +1,15 @@
 .nebula-bg {
   background-image: url('../images/nebula-bg.gif');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.icon-bg {
+  background-image: url('../images/galactic_age_icon.png');
   background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.w-104 {
+  width: 26rem;
 }

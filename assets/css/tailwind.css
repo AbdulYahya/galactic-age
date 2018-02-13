@@ -1,3 +1,30 @@
 @tailwind preflight;
 
 @tailwind utilities;
+
+.card {
+  @apply .my-auto .mx-auto .max-w-md .w-full .shadow-lg;
+}
+
+.card-body {
+  @apply .border-r .border-b .border-l .border-grey-light .bg-white .rounded-b .p-4 .flex .flex-col .justify-between .leading-normal;
+}
+
+.card-img {
+  @apply .h-48 .flex-none .bg-cover .rounded-t .text-center .overflow-hidden;
+}
+
+.label {
+  @apply .block .uppercase .tracking-wide .text-grey-darker .text-xs .font-bold .mb-2;
+}
+
+.field-input {
+  @apply .appearance-none .block w-full .bg-grey-lighter .text-grey-darker .border .border-grey-lighter .rounded .py-3 .px-4 .mb-3;
+}
+.field-input-grid {
+  @apply .appearance-none .block .w-full .bg-grey-lighter .text-grey-darker .border .border-grey-lighter .rounded .py-3 .px-4;
+}
+
+.submit-btn {
+  @apply .flex-no-shrink .bg-teal .border-teal .text-base .border-4 .mt-4 .text-white .py-1 .px-2 .rounded;
+}

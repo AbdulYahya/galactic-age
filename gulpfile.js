@@ -7,23 +7,13 @@ const del = require('del');
 const gulp = require('gulp');
 const imagemin = require('gulp-imagemin');
 const jshint = require('gulp-jshint');
-const lib = require('bower-files') ({  // look at https://github.com/twbs/bootstrap/issues/16663
-  "overrides": {
-    "bootstrap": {
-      "main": [
-        "less/bootstrap.less",
-        "dist/css/bootstrap.css",
-        "dist/js/bootstrap.js"
-      ]
-    }
-  }
-});
+const lib = require('bower-files') ();
 const moment = require('moment');
 const source = require('vinyl-source-stream');
 const uglify = require('gulp-uglify');
 const utilities = require('gulp-util');
-const buildProduction = utilities.env.prod; // append tag '--prod' to gulp command
 
+const buildProduction = utilities.env.prod; // append tag '--prod' to gulp command
 
 gulp.task('jshint', () => {
   return gulp.src(['assets/js/*.js', 'spec/*-spec.js'])
@@ -32,9 +22,9 @@ gulp.task('jshint', () => {
 });
 
 gulp.task('concatJS', () => {
-  return gulp.src(['./assets/js/*-interface.js'])
+  return gulp.src(['assets/js/*-interface.js'])
     .pipe(concat('allConcat.js'))
-    .pipe(gulp.dest('./tmp'));
+    .pipe(gulp.dest('tmp'));
 });
 
 gulp.task('twCSS', () => {
@@ -43,85 +33,86 @@ gulp.task('twCSS', () => {
 
   return gulp.src('assets/css/tailwind.css')
     .pipe(postcss([
-      tailwindcss('./tailwind.js'),
+      tailwindcss('tailwind.js'),
       require('autoprefixer'),
     ]))
-    // .pipe(gulp.dest('build/assets/css'));
-    .pipe(gulp.dest('./tmp'));
+    .pipe(gulp.dest('tmp'));
 });
 
-gulp.task('bootstrap', ['twCSS'], () => {
-  return gulp.src(lib.ext('css').files)
-    .pipe(concat('bootstrap.css'))
-    // Minify?
-    .pipe(gulp.dest('./tmp'));
+gulp.task('concatCSS', ['twCSS'], () => {
+    return gulp.src(['tmp/*.css'])
+      .pipe(concat('vendor.min.css'))  // Change to allConcat after browserify issue is solved
+      .pipe(gulp.dest('tmp'));
 });
 
-gulp.task('concatCSS', ['bootstrap'], () => {
-    return gulp.src(['./tmp/*.css'])
-      .pipe(concat('vendor.css'))  // Change to allConcat after browserify issue is solved
-      .pipe(gulp.dest('./tmp'));
+gulp.task('images', () => {
+  gulp.src('assets/images/*')
+    .pipe(gulp.dest('build/assets/images'));
 });
-
-gulp.task('images', () =>
-	gulp.src('assets/images/*')
-		.pipe(imagemin())
-		.pipe(gulp.dest('./build/assets/images'))
-);
 
 gulp.task('jsBrowserify', ['concatJS'], () => {
-  return browserify({ entries: ['./tmp/allConcat.js'] })
+  return browserify({ entries: ['tmp/allConcat.js'] })
     .transform(babelify.configure({
       presets: ["env"]
     }))
     .bundle()
     .pipe(source('app.js'))
-    .pipe(gulp.dest('./build/assets/js'));
+    .pipe(gulp.dest('build/assets/js'));
 });
 
-gulp.task('cssBrowserify', ['concatCSS'], () => { // Gulp Error when using Browserify *look into browserify-css
-  return gulp.src(['./tmp/vendor.css', 'assets/css/app.css'])
-    .pipe(gulp.dest('./build/assets/css'));
+gulp.task('cssBrowserify', ['concatCSS' , 'cleanCSS'], () => { // Gulp Error when using Browserify *look into browserify-css
+  return gulp.src(['tmp/vendor.min.css', 'assets/css/app.css'])
+    .pipe(gulp.dest('build/assets/css'));
 });
 
 gulp.task('minifyJS', ['jsBrowserify'], () => {
-  return gulp.src('./build/assets/js/app.js')
+  return gulp.src('build/assets/js/app.js')
     .pipe(uglify())
-    .pipe(gulp.dest('./build/assets/js'));
+    .pipe(gulp.dest('build/assets/js'));
 });
 
 gulp.task('minifyCSS', ['cssBrowserify'], () => {
-  return gulp.src('./build/assets/css/*.css')
+  return gulp.src('build/assets/css/*.css')
     .pipe(cleanCSS({debug: true}, (details) => {
       console.log(`${details.name}: ${details.stats.originalSize}`);
       console.log(`${details.name}: ${details.stats.minifiedSize}`);
     }))
-  .pipe(gulp.dest('./build/assets/css'));
+  .pipe(gulp.dest('build/assets/css'));
+});
+
+gulp.task('minifyImages', () => {
+	gulp.src('assets/images/*')
+		.pipe(imagemin())
+		.pipe(gulp.dest('build/assets/images'))
 });
 
 gulp.task('jsBower', () => {
   return gulp.src(lib.ext('js').files)
     .pipe(concat('vendor.min.js'))
     .pipe(uglify())
-    .pipe(gulp.dest('./build/assets/js'));
+    .pipe(gulp.dest('build/assets/js'));
 });
 
-gulp.task('bower', ['jsBower', 'cssBrowserify']);
+gulp.task('bower', ['jsBower']);
 
 gulp.task('clean', () => {
   return del(['build', 'tmp']);
+});
+
+gulp.task('cleanCSS', () => {
+  return del(['tmp/*.css', '!tmp']);
 });
 
 gulp.task('build', ['clean'], () => {
   if (buildProduction) {
     gulp.start('minifyJS');
     gulp.start('minifyCSS');
+    gulp.start('minifyImages');
   } else {
     gulp.start('jsBrowserify');
     gulp.start('cssBrowserify');
+    gulp.start('images');
   }
-
-  gulp.start('images');
 });
 
 gulp.task('serve', ['build'], () => {
@@ -133,24 +124,24 @@ gulp.task('serve', ['build'], () => {
   });
 
   gulp.watch(['assets/js/*.js'], ['jsBuild']); // Run jsBuild if any changes are made to any files with ext .js
-  gulp.watch(['assets/css/*.css', '!assets/css/app.css'], ['cssBuild']); // Run cssBuild if any changes are made to any files with ext .css
-  gulp.watch(['assets/css/app.css'], ['mainCSS']);
+  gulp.watch(['assets/css/*.css'], ['cssBuild']); // Run cssBuild if any changes are made to any files with ext .css
   gulp.watch(['bower.json'], ['bowerBuild']); // Run bowerBuild if any changes are made to our bower.json file
   gulp.watch(['*.html'], ['htmlBuild']); // Run htmlBuil if any changes are made to any files with ext .html
-  //gulp.watch('scss/*.scss', ['cssBuild']);  -- Use Bootstrap's SASS??
 });
 
 gulp.task('jsBuild', ['jsBrowserify', 'jshint'], () => {
   browserSync.reload();
 });
 
-gulp.task('cssBuild', ['cssBrowserify'], () => {
-    browserSync.reload();
-});
-
-gulp.task('mainCSS', ['twCSS'], () => {
-  browserSync.reload();
-});
+if (buildProduction) {
+  gulp.task('cssBuild', ['minifyCSS'], () => {
+      browserSync.reload();
+  });
+} else {
+  gulp.task('cssBuild', ['cssBrowserify'], () => {
+      browserSync.reload();
+  });
+}
 
 gulp.task('bowerBuild', ['bower'], () => {
   browserSync.reload();

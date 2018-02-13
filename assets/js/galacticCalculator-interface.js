@@ -23,19 +23,20 @@ const processAge = age => {
 let processForm = () => {
   const form = document.getElementById('galacticForm');
   const now = moment();
-  
+
   form.addEventListener('submit', function(event) {
     event.preventDefault();
     event.stopPropagation();
 
-    let name = $('#name').val();
-    const birth = $('#dob').val();
+    let name = $('#grid-name').val();
+    const birth = $('#grid-dob').val();
+    console.error(birth);
     const galacticCalculator = new GalacticCalculator(birth);
 
     $('#header').html(`To infinity & yatta yatta yatta...`);
 
-    $('#calculation').removeClass('hidden');
-    $('#galacticFormCard').addClass('hidden');
+    $('#galacticResult').removeClass('hidden');
+    $('#galacticForm').addClass('hidden');
 
     $('#userName').html(name);
     $('#earthAge').html(now.diff(moment(birth), 'years'));

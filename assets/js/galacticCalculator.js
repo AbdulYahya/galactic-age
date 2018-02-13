@@ -1,5 +1,3 @@
-import * as moment from 'moment';
-
 export class GalacticCalculator {
   constructor(birthday) {
     this.birthday = birthday;
