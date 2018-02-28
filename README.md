@@ -42,21 +42,15 @@ Now, just run this gulp task:
 $ gulp serve --prod
 ```
 
-## Future Features
+### Future Features
 
-Given more time, I would have liked to implement these features:
-* Rather than only the required planets, include all planets in our solar system.
-* Calculate a user's next birthday on each planet.
-* Calculate a user's expected lifespan by their sex, occupation, and country.
-* Improve the UI 
-* Calculate how many mayfly lifespans the user has currently lived.
-* Calculate how many mayfly lifespans the user is expected to live.
-
-
-| Behavior | Input | Expected Behavior |
-| :------------- | :------------- | :------------- |
-| . | . | . |
-
+| Improvements | Description |
+| :------------- | :------------- |
+| All planets | Rather than only the required planets, include all planets in our solar system. |      
+| Birthday | Calculate a user's next birthday on each planet |
+| Accurate Life Expectancy | Calculate a user's expected lifespan by their sex, occupation, and country. |
+| Mayfly | Calculate how many mayfly lifespans the user has currently lived. |
+| Mayfly | Calculate how many more mayfly lifespans the user is expected to live. |
 
 ## License
 
