@@ -1,25 +1,5 @@
 import { GalacticCalculator }  from './../assets/js/galacticCalculator.js';
 
-const processAge = age => {
-  // age = moment.duration(galacticCalculator.convertAgeToSeconds(age), 'seconds').asYears();
-  // age = now.diff(moment(age), 'years');
-
-  // console.log(now.diff(moment(age), 'years'));
-  console.log(age % 1);
-  // switch(age) {
-  //   case ((age % 1) > 0.2):
-  //     $('#header').html(`Happy belated ${age.humanize()} birthday!`);
-  //     break;
-  //   case ((age % 1) > 0.5):
-  //     $('#header').html(`${age}, slowly but surely marching on to ${age.humanize() + 1}`);
-  //     break;
-  //   // default:
-  //   //   console.log('lol');
-  //   //   break;
-  // }
-};
-
-
 let processForm = () => {
   const form = document.getElementById('galacticForm');
   const now = moment();
@@ -29,22 +9,25 @@ let processForm = () => {
     event.stopPropagation();
 
     let name = $('#grid-name').val();
-    const birth = $('#grid-dob').val();
-    console.error(birth);
-    const galacticCalculator = new GalacticCalculator(birth);
+    let birth = $('#grid-dob').val();
+    let country = $('#countrySelect').val();
+
+    let galacticCalculator = new GalacticCalculator(birth);
 
     $('#header').html(`To infinity & yatta yatta yatta...`);
-
     $('#galacticResult').removeClass('hidden');
     $('#galacticForm').addClass('hidden');
-
     $('#userName').html(name);
     $('#earthAge').html(now.diff(moment(birth), 'years'));
-    $('#mercuryAge').html(galacticCalculator.solarAge('mercury'));
-    $('#venusAge').html(galacticCalculator.solarAge('venus'));
-    $('#marsAge').html(galacticCalculator.solarAge('mars'));
-    $('#jupiterAge').html(galacticCalculator.solarAge('jupiter'));
-    // $('#calculation').append("yo" + galacticCalculator.convertAgeToSeconds(birth));
+    $('#mercuryAge').html(galacticCalculator.solarAge('ME'));
+    $('#venusAge').html(galacticCalculator.solarAge('VE'));
+    $('#marsAge').html(galacticCalculator.solarAge('MA'));
+    $('#jupiterAge').html(galacticCalculator.solarAge('JU'));
+
+    $('#meExpDate').html(galacticCalculator.lifeExpectancy('ME', country));
+    $('#veExpDate').html(galacticCalculator.lifeExpectancy('VE', country));
+    $('#maExpDate').html(galacticCalculator.lifeExpectancy('MA', country));
+    $('#juExpDate').html(galacticCalculator.lifeExpectancy('JU', country));
   });
 };
 

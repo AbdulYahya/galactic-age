@@ -28,3 +28,10 @@
 .submit-btn {
   @apply .flex-no-shrink .bg-teal .border-teal .text-base .border-4 .mt-4 .text-white .py-1 .px-2 .rounded;
 }
+
+.res-card {
+  @apply .flex .flex-wrap .mb-6 .py-3 .px-3 .mb-6 .rounded .overflow-hidden .shadow;
+}
+.res-card-body {
+  @apply .w-1/2 .px-3 .mb-6;
+}
